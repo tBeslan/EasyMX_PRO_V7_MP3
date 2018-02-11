@@ -88,7 +88,8 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, TFT_D2_Pin|TFT_D3_Pin|TFT_D4_Pin|TFT_D5_Pin 
                           |TFT_D6_Pin|TFT_D7_Pin|TFT_RST_Pin|TFT_RD_Pin 
-                          |TFT_WR_Pin|TFT_D0_Pin|TFT_D1_Pin, GPIO_PIN_RESET);
+                          |TFT_WR_Pin|TFT_RS_Pin|TFT_NC_Pin|TFT_CS_Pin 
+                          |TFT_D0_Pin|TFT_D1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, MP3_RST_Pin|MP3_CS_Pin|MP3_DCS_Pin, GPIO_PIN_RESET);
@@ -101,10 +102,12 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PEPin PEPin PEPin PEPin 
                            PEPin PEPin PEPin PEPin 
-                           PEPin PEPin PEPin */
+                           PEPin PEPin PEPin PEPin 
+                           PEPin PEPin */
   GPIO_InitStruct.Pin = TFT_D2_Pin|TFT_D3_Pin|TFT_D4_Pin|TFT_D5_Pin 
                           |TFT_D6_Pin|TFT_D7_Pin|TFT_RST_Pin|TFT_RD_Pin 
-                          |TFT_WR_Pin|TFT_D0_Pin|TFT_D1_Pin;
+                          |TFT_WR_Pin|TFT_RS_Pin|TFT_NC_Pin|TFT_CS_Pin 
+                          |TFT_D0_Pin|TFT_D1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);

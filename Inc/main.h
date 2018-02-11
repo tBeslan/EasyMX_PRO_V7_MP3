@@ -52,7 +52,6 @@
 #define __MAIN_H__
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f1xx_hal.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -88,8 +87,14 @@
 #define TFT_RD_GPIO_Port GPIOE
 #define TFT_WR_Pin GPIO_PIN_11
 #define TFT_WR_GPIO_Port GPIOE
+#define TFT_RS_Pin GPIO_PIN_12
+#define TFT_RS_GPIO_Port GPIOE
+#define TFT_NC_Pin GPIO_PIN_13
+#define TFT_NC_GPIO_Port GPIOE
 #define BUZZER_Pin GPIO_PIN_14
 #define BUZZER_GPIO_Port GPIOE
+#define TFT_CS_Pin GPIO_PIN_15
+#define TFT_CS_GPIO_Port GPIOE
 #define SD_CD_Pin GPIO_PIN_15
 #define SD_CD_GPIO_Port GPIOD
 #define MP3_DREQ_Pin GPIO_PIN_6

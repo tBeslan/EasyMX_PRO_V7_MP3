@@ -50,7 +50,6 @@
 #include "stm32f1xx_hal.h"
 #include "cmsis_os.h"
 #include "adc.h"
-#include "eth.h"
 #include "fatfs.h"
 #include "i2c.h"
 #include "spi.h"
@@ -114,7 +113,6 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM1_Init();
   MX_ADC1_Init();
-  MX_ETH_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */

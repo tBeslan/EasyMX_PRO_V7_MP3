@@ -52,7 +52,9 @@
 #include "cmsis_os.h"
 
 /* USER CODE BEGIN Includes */     
-
+#include "tim.h"
+#include "gfx.h"
+#include "gui.h"
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -95,7 +97,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -114,6 +116,11 @@ void StartDefaultTask(void const * argument)
   MX_FATFS_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+//  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4); //Buzzer
+  gfxInit();
+  guiCreate();
+  gwinPrintf(GW1, "Test");
   /* Infinite loop */
   for(;;)
   {
