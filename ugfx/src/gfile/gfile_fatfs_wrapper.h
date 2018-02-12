@@ -18,15 +18,15 @@
 #include "ffconf.h"
 
 // Prevent preprocessor redefinition warnings
-#include "../../3rdparty/fatfs-0.13/source/integer.h"
+#include "integer.h"
 #if defined(_T) && !defined(_INC_TCHAR)
 	#define _INC_TCHAR
 #endif
 
 // Include the fatfs API
-#include "../../3rdparty/fatfs-0.13/source/ff.h"
+#include "ff.h"
 
 // Include the fatfs diskio API
-#include "../../3rdparty/fatfs-0.13/source/diskio.h"
+#include "diskio.h"
 
 #endif //_FATFS_WRAPPER

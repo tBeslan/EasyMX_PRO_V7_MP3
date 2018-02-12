@@ -90,7 +90,7 @@
 //    #define GDISP_NEED_TEXT_BOXPADLR                 1
 //    #define GDISP_NEED_TEXT_BOXPADTB                 1
 //    #define GDISP_NEED_ANTIALIAS                     FALSE
-//    #define GDISP_NEED_UTF8                          FALSE
+    #define GDISP_NEED_UTF8                          TRUE
 //    #define GDISP_NEED_TEXT_KERNING                  FALSE
 //    #define GDISP_INCLUDE_FONT_UI1                   FALSE
 //    #define GDISP_INCLUDE_FONT_UI2                   FALSE		// The smallest preferred font.
@@ -269,9 +269,9 @@
 #define GFX_USE_GQUEUE                               TRUE
 
 #define GQUEUE_NEED_ASYNC                            TRUE
-//#define GQUEUE_NEED_GSYNC                            FALSE
+#define GQUEUE_NEED_GSYNC                            TRUE
 //#define GQUEUE_NEED_FSYNC                            FALSE
-//#define GQUEUE_NEED_BUFFERS                          FALSE
+#define GQUEUE_NEED_BUFFERS                          TRUE
 
 ///////////////////////////////////////////////////////////////////////////
 // GINPUT                                                                //
@@ -301,7 +301,7 @@
 ///////////////////////////////////////////////////////////////////////////
 // GFILE                                                                 //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GFILE                                FALSE
+#define GFX_USE_GFILE                                TRUE
 
 //#define GFILE_NEED_PRINTG                            FALSE
 //#define GFILE_NEED_SCANG                             FALSE
@@ -312,9 +312,9 @@
 //#define GFILE_NEED_NOAUTOSYNC                        FALSE
 
 //#define GFILE_NEED_MEMFS                             FALSE
-//#define GFILE_NEED_ROMFS                             FALSE
+//#define GFILE_NEED_ROMFS                             TRUE
 //#define GFILE_NEED_RAMFS                             FALSE
-//#define GFILE_NEED_FATFS                             FALSE
+#define GFILE_NEED_FATFS                             TRUE
 //#define GFILE_NEED_NATIVEFS                          FALSE
 //#define GFILE_NEED_CHBIOSFS                          FALSE
 //#define GFILE_NEED_USERFS                            FALSE
@@ -332,8 +332,8 @@
 ///////////////////////////////////////////////////////////////////////////
 // GAUDIO                                                                //
 ///////////////////////////////////////////////////////////////////////////
-//#define GFX_USE_GAUDIO                               FALSE
-//    #define GAUDIO_NEED_PLAY                         FALSE
+#define GFX_USE_GAUDIO                               TRUE
+    #define GAUDIO_NEED_PLAY                         TRUE
 //    #define GAUDIO_NEED_RECORD                       FALSE
 
 ///////////////////////////////////////////////////////////////////////////

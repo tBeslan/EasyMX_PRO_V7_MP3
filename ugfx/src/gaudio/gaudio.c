@@ -47,7 +47,7 @@ void _gaudioInit(void)
 		#if GFX_USE_GEVENT
 			gtimerInit(&playTimer);
 		#endif
-		gfxSemInit(&playComplete, 0, 0);
+		gfxSemInit(&playComplete, 1, 1);
 	#endif
 	#if GAUDIO_NEED_RECORD
 		gfxQueueGSyncInit(&recordList);

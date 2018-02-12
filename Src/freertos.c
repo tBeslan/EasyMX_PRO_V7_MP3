@@ -55,12 +55,43 @@
 #include "tim.h"
 #include "gfx.h"
 #include "gui.h"
+#include "sd.h"
+#include "fatfs.h"
+#include "gaudio_play_board.h"
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
 osThreadId defaultTaskHandle;
 
 /* USER CODE BEGIN Variables */
+extern char USER_Path[4]; /* logical drive path */
+//  uint16_t i;
+  	FRESULT res; //результат выполнения
+//  	uint8_t wtext[]="Hello from STM32!!!";
+  	FILINFO fileInfo;
+  	char *fn;
+  	DIR dir;
+  	DWORD fre_clust, fre_sect, tot_sect;
+//  	volatile uint16_t Timer1=0;
+  	uint8_t sect[512];
+  	//char buffer1[512] ="Selection of VAM is set by the previous address set instruction. If the address set instruction of RAM is not performed before this instruction, the data that has been read first is invalid, as the direction of AC is not yet determined. If RAM data is read several times without RAM address instructions set before, read operation, the correct RAM data can be obtained from the second. But the first data would be incorrect, as there is no time margin to transfer RAM data. In case of DDRAM read operation The..."; //Ѕуфер данных дл¤ записи/чтени¤
+  	extern char str1[60];
+//  	uint32_t byteswritten,bytesread;
+  	uint8_t result;
+
+  	FATFS SDFatFs;
+  	FATFS *fs;
+  	FIL MyFile;
+
+	font_t			font;
+	GFILE			*f;
+	char 			*errmsg;
+	uint32_t		toplay;
+	uint32_t		len;
+	GDataBuffer		*pd;
+
+#define MY_AUDIO_CHANNEL				0								/* Use channel 0 */
+#define MY_PLAY_FILE					"allwrong.wav"
 
 /* USER CODE END Variables */
 
@@ -97,7 +128,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 5048);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
@@ -116,11 +147,56 @@ void StartDefaultTask(void const * argument)
   MX_FATFS_Init();
 
   /* USER CODE BEGIN StartDefaultTask */
+
+
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 //  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4); //Buzzer
   gfxInit();
   guiCreate();
-  gwinPrintf(GW1, "Test");
+  gwinPrintf(GW1, "Test\r\n");
+
+  	if (!gfxBufferAlloc(4, 128)) {
+  		 gwinPrintf(GW1,"Err: No Memory\r\n");
+  	}
+
+  	/* Mount the file system. */
+  		if (gfileMount('F', "/"))
+  		  gwinPrintf(GW1, "Can't mount the FAT file system\r\n");
+
+  		if (!(f = gfileOpen("osen.mp3", "r"))) {
+  			 gwinPrintf(GW1,"Err: Open file\r\n");
+  		}
+
+  		// Initialise the audio output device - bitrate is ignored
+  		if (!gaudioPlayInit(MY_AUDIO_CHANNEL, 44800, GAUDIO_PLAY_FORMAT_FILE)) {
+  			 gwinPrintf(GW1, "Err: Bad format/freq\r\n");
+  		}
+
+  		toplay = gfileGetSize(f);
+
+
+  		while(toplay) {
+  				// Get a buffer to put the data into
+  				pd = gfxBufferGet(TIME_INFINITE);		// This should never fail as we are waiting forever
+
+  				// How much data can we put in
+  				len = toplay > pd->size ? pd->size : toplay;
+  				pd->len = len;
+  				toplay -= len;
+
+  				// Read the data
+  				if (gfileRead(f, pd+1, len) != len) {
+  					 gwinPrintf(GW1, "Err: Read fail\r\n");
+
+  				}
+  				gaudioPlay(pd);
+  			}
+  			gfileClose(f);
+
+  			// Wait for the play to finish
+  			gaudioPlayWait(TIME_INFINITE);
+
+  gwinPrintf(GW1, "Done!\r\n");
   /* Infinite loop */
   for(;;)
   {

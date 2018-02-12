@@ -64,10 +64,12 @@
 /* Includes ------------------------------------------------------------------*/
 #include <string.h>
 #include "ff_gen_drv.h"
-
+#include "sd.h"
+#include "gui.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-
+extern sd_info_ptr sdinfo;
+extern char str1[60];
 /* Private variables ---------------------------------------------------------*/
 /* Disk status */
 static volatile DSTATUS Stat = STA_NOINIT;
@@ -110,8 +112,11 @@ DSTATUS USER_initialize (
 )
 {
   /* USER CODE BEGIN INIT */
+//	 gwinPrintf(GW1, "USER_initialize\r\n");
     Stat = STA_NOINIT;
-    return Stat;
+	SD_PowerOn();
+	if(sd_init()==0) {Stat &= ~STA_NOINIT;} //Сбросим статус STA_NOINIT
+	return Stat;
   /* USER CODE END INIT */
 }
  
@@ -125,8 +130,9 @@ DSTATUS USER_status (
 )
 {
   /* USER CODE BEGIN STATUS */
-    Stat = STA_NOINIT;
-    return Stat;
+//	 gwinPrintf(GW1, "USER_status\r\n");
+if (pdrv) return STA_NOINIT;
+return Stat;
   /* USER CODE END STATUS */
 }
 
@@ -146,7 +152,23 @@ DRESULT USER_read (
 )
 {
   /* USER CODE BEGIN READ */
-    return RES_OK;
+//	 gwinPrintf(GW1, "USER_read\r\n");
+//	 sprintf(str1,"sector: %lu; count: %d\r\n",sector, count);
+//	 gwinPrintf(GW1, str1);
+	if (pdrv || !count) return RES_PARERR;
+	if (Stat & STA_NOINIT) return RES_NOTRDY;
+	if (!(sdinfo.type & 4)) sector *= 512; /* Convert to byte address if needed */
+	if (count == 1) /* Single block read */
+	{
+		SD_Read_Block(buff,sector); //Считаем блок в буфер
+		count = 0;
+	}
+	else /* Multiple block read */
+	{
+	}
+	SPI_Release();
+	return count ? RES_ERROR : RES_OK;
+return RES_OK;
   /* USER CODE END READ */
 }
 
@@ -168,7 +190,20 @@ DRESULT USER_write (
 { 
   /* USER CODE BEGIN WRITE */
   /* USER CODE HERE */
-    return RES_OK;
+	if (pdrv || !count) return RES_PARERR;
+			if (Stat & STA_NOINIT) return RES_NOTRDY;
+			if (Stat & STA_PROTECT) return RES_WRPRT;
+			if (!(sdinfo.type & 4)) sector *= 512; /* Convert to byte address if needed */
+			if (count == 1) /* Single block read */
+			{
+				SD_Write_Block((BYTE*)buff,sector); //Считаем блок в буфер
+				count = 0;
+			}
+			else /* Multiple block read */
+			{
+			}
+			SPI_Release();
+			return count ? RES_ERROR : RES_OK;
   /* USER CODE END WRITE */
 }
 #endif /* _USE_WRITE == 1 */
@@ -188,7 +223,28 @@ DRESULT USER_ioctl (
 )
 {
   /* USER CODE BEGIN IOCTL */
-    DRESULT res = RES_ERROR;
+    DRESULT res;
+   //		HAL_UART_Transmit(&huart1,(uint8_t*)"USER_ioctl\r\n",12,0x1000);
+   //		sprintf(str1,"cmd: %d\r\n",cmd);
+   //		HAL_UART_Transmit(&huart1,(uint8_t*)str1,strlen(str1),0x1000);
+   		if (pdrv) return RES_PARERR;
+   		if (Stat & STA_NOINIT) return RES_NOTRDY;
+   		res = RES_ERROR;
+   		switch (cmd)
+   		{
+   			case CTRL_SYNC : /* Flush dirty buffer if present */
+   				SS_SD_SELECT();
+   				if (SPI_wait_ready() == 0xFF)
+   				res = RES_OK;
+   				break;
+   			case GET_SECTOR_SIZE : /* Get sectors on the disk (WORD) */
+   				*(WORD*)buff = 512;
+   				res = RES_OK;
+   				break;
+   			default:
+   				res = RES_PARERR;
+   		}
+   		SPI_Release();
     return res;
   /* USER CODE END IOCTL */
 }
