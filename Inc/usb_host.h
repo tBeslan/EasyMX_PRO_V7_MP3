@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * @file   fatfs.h
-  * @brief  Header for fatfs applications
+  * @file           : usb_host.h
+  * @version        : v1.0_Cube
+  * @brief          : Header for usb_host.c file.
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -47,38 +48,73 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __fatfs_H
-#define __fatfs_H
+#ifndef __USB_HOST__H__
+#define __USB_HOST__H__
+
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-#include "ff.h"
-#include "ff_gen_drv.h"
-#include "usbh_diskio.h" /* defines USBH_Driver as external */
-#include "user_diskio.h" /* defines USER_Driver as external */
+/* Includes ------------------------------------------------------------------*/
+#include "stm32f1xx.h"
+#include "stm32f1xx_hal.h"
 
-/* USER CODE BEGIN Includes */
+/* USER CODE BEGIN INCLUDE */
 
-/* USER CODE END Includes */
+/* USER CODE END INCLUDE */
 
-extern uint8_t retUSBH; /* Return value for USBH */
-extern char USBHPath[4]; /* USBH logical drive path */
-extern FATFS USBHFatFS; /* File system object for USBH logical drive */
-extern FIL USBHFile; /* File object for USBH */
-extern uint8_t retUSER; /* Return value for USER */
-extern char USERPath[4]; /* USER logical drive path */
-extern FATFS USERFatFS; /* File system object for USER logical drive */
-extern FIL USERFile; /* File object for USER */
+/** @addtogroup USBH_OTG_DRIVER
+  * @{
+  */
 
-void MX_FATFS_Init(void);
+/** @defgroup USBH_HOST USBH_HOST
+  * @brief Host file for Usb otg low level driver.
+  * @{
+  */
 
-/* USER CODE BEGIN Prototypes */
+/** @defgroup USBH_HOST_Exported_Variables USBH_HOST_Exported_Variables
+  * @brief Public variables.
+  * @{
+  */
 
-/* USER CODE END Prototypes */
+/**
+  * @}
+  */
+
+/** Status of the application. */
+typedef enum {
+  APPLICATION_IDLE = 0,
+  APPLICATION_START,
+  APPLICATION_READY,
+  APPLICATION_DISCONNECT
+}ApplicationTypeDef;
+
+/** @defgroup USBH_HOST_Exported_FunctionsPrototype USBH_HOST_Exported_FunctionsPrototype
+  * @brief Declaration of public functions for Usb host.
+  * @{
+  */
+
+/* Exported functions -------------------------------------------------------*/
+
+/** @brief USB Host initialization function. */
+void MX_USB_HOST_Init(void);
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
 #ifdef __cplusplus
 }
 #endif
-#endif /*__fatfs_H */
+
+#endif /* __USB_HOST__H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

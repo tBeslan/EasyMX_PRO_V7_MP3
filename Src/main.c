@@ -54,6 +54,7 @@
 #include "i2c.h"
 #include "spi.h"
 #include "tim.h"
+#include "usb_host.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
@@ -182,8 +183,9 @@ void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC|RCC_PERIPHCLK_USB;
   PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV3;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);

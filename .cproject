@@ -90,6 +90,14 @@
                                     <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
                                     									
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gaudio/vs1053"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src/drivers"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../ugfx/drivers/ginput/toggle/Pal"/>
                                     								
                                 </option>
                                 								
@@ -138,6 +146,12 @@
                                     <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
                                     									
                                     <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src/drivers"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
                                     								
                                 </option>
                                 								
@@ -212,6 +226,10 @@
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gdisp/HX8347D"/>
                                     									
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gaudio/vs1053"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../ugfx/drivers/ginput/toggle/Pal"/>
                                     								
                                 </option>
                                 								
@@ -336,6 +354,14 @@
                                     <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
                                     									
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gaudio/vs1053"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src/drivers"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../ugfx/drivers/ginput/toggle/Pal"/>
                                     								
                                 </option>
                                 								
@@ -384,6 +410,12 @@
                                     <listOptionValue builtIn="false" value="../Drivers/CMSIS/Include"/>
                                     									
                                     <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/Third_Party/FatFs/src/drivers"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Core/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
                                     								
                                 </option>
                                 								
@@ -458,6 +490,10 @@
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gdisp/HX8347D"/>
                                     									
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gaudio/vs1053"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../ugfx/drivers/ginput/toggle/Pal"/>
                                     								
                                 </option>
                                 								
@@ -476,6 +512,10 @@
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gdisp/HX8347D"/>
                                     									
                                     <listOptionValue builtIn="false" value="../ugfx/drivers/gaudio/vs1053"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Middlewares/ST/STM32_USB_Host_Library/Class/MSC/Inc"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../ugfx/drivers/ginput/toggle/Pal"/>
                                     								
                                 </option>
                                 								

@@ -210,7 +210,7 @@
 //#define GWIN_FOCUS_HIGHLIGHT_WIDTH                   1
     #define GWIN_NEED_LABEL                          TRUE
 //        #define GWIN_LABEL_ATTRIBUTE                 FALSE
-//    #define GWIN_NEED_BUTTON                         FALSE
+    #define GWIN_NEED_BUTTON                         TRUE
 //        #define GWIN_BUTTON_LAZY_RELEASE             FALSE
 //    #define GWIN_NEED_SLIDER                         FALSE
 //        #define GWIN_SLIDER_NOSNAP                   FALSE
@@ -220,9 +220,9 @@
 //    #define GWIN_NEED_IMAGE                          FALSE
 //        #define GWIN_NEED_IMAGE_ANIMATION            FALSE
 //    #define GWIN_NEED_RADIO                          FALSE
-//    #define GWIN_NEED_LIST                           FALSE
+    #define GWIN_NEED_LIST                           TRUE
 //        #define GWIN_NEED_LIST_IMAGES                FALSE
-//    #define GWIN_NEED_PROGRESSBAR                    FALSE
+    #define GWIN_NEED_PROGRESSBAR                    TRUE
 //        #define GWIN_PROGRESSBAR_AUTO                FALSE
 //    #define GWIN_NEED_KEYBOARD                       FALSE
 //        #define GWIN_KEYBOARD_DEFAULT_LAYOUT         VirtualKeyboard_English1
@@ -294,7 +294,7 @@
 //    #define GKEYBOARD_DRIVER_LIST                    GKEYBOARDVMT_Win32, GKEYBOARDVMT_Win32
 //    #define GKEYBOARD_LAYOUT_OFF                     FALSE
 //        #define GKEYBOARD_LAYOUT_SCANCODE2_US        FALSE
-//#define GINPUT_NEED_TOGGLE                           FALSE
+#define GINPUT_NEED_TOGGLE                           TRUE
 //#define GINPUT_NEED_DIAL                             FALSE
 
 

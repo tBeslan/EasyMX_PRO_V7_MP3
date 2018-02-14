@@ -105,6 +105,8 @@
 #define MP3_CS_GPIO_Port GPIOC
 #define MP3_DCS_Pin GPIO_PIN_9
 #define MP3_DCS_GPIO_Port GPIOC
+#define USB_PSW_Pin GPIO_PIN_10
+#define USB_PSW_GPIO_Port GPIOA
 #define KEY1_LEFT_Pin GPIO_PIN_2
 #define KEY1_LEFT_GPIO_Port GPIOD
 #define SD_CS_Pin GPIO_PIN_3

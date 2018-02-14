@@ -20,11 +20,7 @@ GListener glistener;
 // GHandles
 GHandle ghContainerMainPage;
 GHandle GW1;
-GHandle ghTemperatureText, ghHumidityText;
-GHandle ghFan, ghLamp;
-GHandle ghTemperature, ghHumidity, ghTemp2;
-GHandle ghFanText, ghLampText, ghTemp2Text;
-
+GHandle   ghList1;
 // Fonts
 font_t dejavu_sans_16;
 
@@ -50,13 +46,25 @@ static void createPageMainPage(void)
 	// Create console widget: GW1
 	wi.g.show = TRUE;
 	wi.g.x = 0;
-	wi.g.y = 0;
+	wi.g.y = 150;
 	wi.g.width = 320;
-	wi.g.height = 240;
+	wi.g.height = 100;
 	wi.g.parent = ghContainerMainPage;
 	GW1 = gwinConsoleCreate(0, &wi.g);
-	gwinSetColor(GW1, White);
-	gwinSetBgColor(GW1, Black);
+//	gwinSetColor(GW1, Black);
+//	gwinSetBgColor(GW1, White);
+
+	// Apply the list parameters
+	wi.g.show = TRUE;
+	wi.g.width = 200;
+	wi.g.height = 100;
+	wi.g.y = 10;
+	wi.g.x = 10;
+	wi.text = "List Name";
+
+	// Create the actual list
+	ghList1 = gwinListCreate(NULL, &wi, FALSE);
+
 
 }
 
@@ -103,12 +111,22 @@ void guiCreate(void)
 void guiEventLoop(void)
 {
 	GEvent* pe;
+	GEventToggle *toogle;
+	gwinAttachToggle(ghList1, 0, 0);
+	gwinAttachToggle(ghList1, 1, 1);
 
+	geventListenerInit(&glistener);
+	if(geventAttachSource(&glistener, ginputGetToggle(1), 1)){
+		gwinPrintf(GW1, "Attach\n");
+	}
+//	geventAttachSource(&glistener, ginputGetToggle(0), GINPUT_TOGGLE_UP);
+//	gwinAttachListener(&glistener);
 	while (1) {
 		// Get an event
-		pe = geventEventWait(&glistener, 0);
-		switch (pe->type) {
-		}
+		toogle = (GEventToggle *)geventEventWait(&glistener, TIME_INFINITE);
+		gwinPrintf(GW1, "ewent %d\n", toogle->on);
+//		switch (pe->type) {
+//		}
 
 	}
 }

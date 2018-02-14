@@ -1,7 +1,8 @@
 /**
   ******************************************************************************
-  * @file   fatfs.h
-  * @brief  Header for fatfs applications
+  * @file            : usb_host.c
+  * @version         : v1.0_Cube
+  * @brief           : This file implements the USB Host
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -46,39 +47,106 @@
   ******************************************************************************
   */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __fatfs_H
-#define __fatfs_H
-#ifdef __cplusplus
- extern "C" {
-#endif
+/* Includes ------------------------------------------------------------------*/
 
-#include "ff.h"
-#include "ff_gen_drv.h"
-#include "usbh_diskio.h" /* defines USBH_Driver as external */
-#include "user_diskio.h" /* defines USER_Driver as external */
+#include "usb_host.h"
+#include "usbh_core.h"
+#include "usbh_msc.h"
 
 /* USER CODE BEGIN Includes */
-
+#include "main.h"
 /* USER CODE END Includes */
 
-extern uint8_t retUSBH; /* Return value for USBH */
-extern char USBHPath[4]; /* USBH logical drive path */
-extern FATFS USBHFatFS; /* File system object for USBH logical drive */
-extern FIL USBHFile; /* File object for USBH */
-extern uint8_t retUSER; /* Return value for USER */
-extern char USERPath[4]; /* USER logical drive path */
-extern FATFS USERFatFS; /* File system object for USER logical drive */
-extern FIL USERFile; /* File object for USER */
+/* USER CODE BEGIN PV */
+/* Private variables ---------------------------------------------------------*/
 
-void MX_FATFS_Init(void);
+/* USER CODE END PV */
 
-/* USER CODE BEGIN Prototypes */
+/* USER CODE BEGIN PFP */
+/* Private function prototypes -----------------------------------------------*/
 
-/* USER CODE END Prototypes */
-#ifdef __cplusplus
+/* USER CODE END PFP */
+
+/* USB Host core handle declaration */
+USBH_HandleTypeDef hUsbHostFS;
+ApplicationTypeDef Appli_state = APPLICATION_IDLE;
+
+/*
+ * -- Insert your variables declaration here --
+ */
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/*
+ * user callback declaration
+ */
+static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
+
+/*
+ * -- Insert your external function declaration here --
+ */
+/* USER CODE BEGIN 1 */
+
+/* USER CODE END 1 */
+
+/**
+  * Init USB host library, add supported class and start the library
+  * @retval None
+  */
+void MX_USB_HOST_Init(void)
+{
+  /* USER CODE BEGIN USB_HOST_Init_PreTreatment */
+
+  /* USER CODE END USB_HOST_Init_PreTreatment */
+  
+  /* Init host Library, add supported class and start the library. */
+  USBH_Init(&hUsbHostFS, USBH_UserProcess, HOST_FS);
+
+  USBH_RegisterClass(&hUsbHostFS, USBH_MSC_CLASS);
+
+  USBH_Start(&hUsbHostFS);
+
+  /* USER CODE BEGIN USB_HOST_Init_PostTreatment */
+  
+  /* USER CODE END USB_HOST_Init_PostTreatment */
 }
-#endif
-#endif /*__fatfs_H */
+
+/*
+ * user callback definition
+ */
+static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
+{
+  /* USER CODE BEGIN CALL_BACK_1 */
+  switch(id)
+  {
+  case HOST_USER_SELECT_CONFIGURATION:
+  break;
+
+  case HOST_USER_DISCONNECTION:
+  Appli_state = APPLICATION_DISCONNECT;
+  break;
+
+  case HOST_USER_CLASS_ACTIVE:
+  Appli_state = APPLICATION_READY;
+  break;
+
+  case HOST_USER_CONNECTION:
+  Appli_state = APPLICATION_START;
+  break;
+
+  default:
+  break;
+  }
+  /* USER CODE END CALL_BACK_1 */
+}
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

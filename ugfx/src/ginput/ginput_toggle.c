@@ -14,7 +14,8 @@
  * @{
  */
 #include "../../gfx.h"
-
+//TODO Потом убрать
+#include "gui.h"
 #if (GFX_USE_GINPUT && GINPUT_NEED_TOGGLE) || defined(__DOXYGEN__)
 
 #include "ginput_driver_toggle.h"
@@ -37,31 +38,34 @@ static void TogglePoll(void *param) {
 	unsigned		i, bits, mask;
 	uint8_t 		state;
 	
+
+
 	// Loop while there are bits to get
 	for(ptc = GInputToggleConfigTable, i=0; i < GINPUT_TOGGLE_NUM_PORTS; ptc++) {
 	
 		// Get the next block of bits
-		bits = ginput_lld_toggle_getbits(ptc) ^ ptc->invert;
-
+		state = ginput_lld_toggle_getbits(ptc);
+//		gwinPrintf(GW1, "bits %d, %d\n", i, state);
+//		HAL_Delay(1000);
 		// Extract the bits of use
-		for(mask = ptc->mask; i < GINPUT_TOGGLE_NUM_PORTS && mask; mask >>= 1, bits >>= 1) {
+//		for(mask = ptc->mask; i < GINPUT_TOGGLE_NUM_PORTS && mask; mask >>= 1, bits >>= 1) {
 			// Ignore bits not in our mask
-			if (!(mask & 1))
-				continue;
+//			if (!(mask & 1))
+//				continue;
 		
 			// Calculate our new state
-			state = ToggleStatus[i].status & ~GINPUT_TOGGLE_ISON;
-			if (state & GINPUT_TOGGLE_INVERT)
-				bits ^= 1;
-			if (bits & 1)
-				state |= GINPUT_TOGGLE_ISON;
+//			state = ToggleStatus[i].status & ~GINPUT_TOGGLE_ISON;
+//			if (state & GINPUT_TOGGLE_INVERT)
+//				bits ^= 1;
+//			if (bits & 1)
+//				state |= GINPUT_TOGGLE_ISON;
 
 			// Has it changed?
-			if ((state ^ ToggleStatus[i].status) & GINPUT_TOGGLE_ISON) {
+			if (state != ToggleStatus[i].status) {
 			
 				// Save the new state
 				ToggleStatus[i].status = state;
-				
+				gwinPrintf(GW1, "state=%d, %d\n", i, state);
 				// Send the event to the listeners that are interested.
 				psl = 0;
 				while ((psl = geventGetSourceListener((GSourceHandle)(ToggleStatus+i), psl))) {
@@ -73,6 +77,7 @@ static void TogglePoll(void *param) {
 							pe->instance = i;
 							pe->on = TRUE;
 							geventSendEvent(psl);
+							gwinPrintf(GW1, "Event send\n");
 						}
 					} else {
 						if ((psl->listenflags & GLISTEN_TOGGLE_OFF)) {
@@ -85,9 +90,9 @@ static void TogglePoll(void *param) {
 				}
 			}
 
-			// Next toggle switch
+//			 Next toggle switch
 			i++;
-		}
+//		}
 	}
 }
 

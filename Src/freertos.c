@@ -58,6 +58,7 @@
 #include "sd.h"
 #include "fatfs.h"
 #include "gaudio_play_board.h"
+#include "player.h"
 /* USER CODE END Includes */
 
 /* Variables -----------------------------------------------------------------*/
@@ -83,12 +84,7 @@ extern char USER_Path[4]; /* logical drive path */
   	FATFS *fs;
   	FIL MyFile;
 
-	font_t			font;
-	GFILE			*f;
-	char 			*errmsg;
-	uint32_t		toplay;
-	uint32_t		len;
-	GDataBuffer		*pd;
+
 
 #define MY_AUDIO_CHANNEL				0								/* Use channel 0 */
 #define MY_PLAY_FILE					"allwrong.wav"
@@ -99,6 +95,7 @@ extern char USER_Path[4]; /* logical drive path */
 void StartDefaultTask(void const * argument);
 
 extern void MX_FATFS_Init(void);
+extern void MX_USB_HOST_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
 /* USER CODE BEGIN FunctionPrototypes */
@@ -146,61 +143,34 @@ void StartDefaultTask(void const * argument)
   /* init code for FATFS */
   MX_FATFS_Init();
 
+  /* init code for USB_HOST */
+  MX_USB_HOST_Init();
+
   /* USER CODE BEGIN StartDefaultTask */
 
-
+osDelay(1000);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
 //  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4); //Buzzer
   gfxInit();
   guiCreate();
   gwinPrintf(GW1, "Test\r\n");
+  uint16_t	i;
+  char		item[20];
+	// Add some items to the list widget
+	for (i = 0; i < 5; i++) {
+		sprintf(item, "Item Nr.: %d", i);
+		gwinListAddItem(ghList1, item, TRUE);
+	}
 
-  	if (!gfxBufferAlloc(4, 128)) {
-  		 gwinPrintf(GW1,"Err: No Memory\r\n");
-  	}
+//playfile("/", "moveit.mp3");
 
-  	/* Mount the file system. */
-  		if (gfileMount('F', "/"))
-  		  gwinPrintf(GW1, "Can't mount the FAT file system\r\n");
+//  	osDelay(1000);
 
-  		if (!(f = gfileOpen("osen.mp3", "r"))) {
-  			 gwinPrintf(GW1,"Err: Open file\r\n");
-  		}
-
-  		// Initialise the audio output device - bitrate is ignored
-  		if (!gaudioPlayInit(MY_AUDIO_CHANNEL, 44800, GAUDIO_PLAY_FORMAT_FILE)) {
-  			 gwinPrintf(GW1, "Err: Bad format/freq\r\n");
-  		}
-
-  		toplay = gfileGetSize(f);
-
-
-  		while(toplay) {
-  				// Get a buffer to put the data into
-  				pd = gfxBufferGet(TIME_INFINITE);		// This should never fail as we are waiting forever
-
-  				// How much data can we put in
-  				len = toplay > pd->size ? pd->size : toplay;
-  				pd->len = len;
-  				toplay -= len;
-
-  				// Read the data
-  				if (gfileRead(f, pd+1, len) != len) {
-  					 gwinPrintf(GW1, "Err: Read fail\r\n");
-
-  				}
-  				gaudioPlay(pd);
-  			}
-  			gfileClose(f);
-
-  			// Wait for the play to finish
-  			gaudioPlayWait(TIME_INFINITE);
-
-  gwinPrintf(GW1, "Done!\r\n");
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
+	guiEventLoop();
+    osDelay(100);
   }
   /* USER CODE END StartDefaultTask */
 }

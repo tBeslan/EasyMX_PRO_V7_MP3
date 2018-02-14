@@ -9,7 +9,7 @@ extern GListener glistener;
 // GHandles
 extern GHandle ghContainerMainPage;
 extern GHandle GW1;
-
+GHandle   ghList1;
 // Function Prototypes
 void guiCreate(void);
 void guiShowPage(unsigned pageIndex);

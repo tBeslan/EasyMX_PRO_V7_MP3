@@ -1,16 +1,14 @@
 /**
   ******************************************************************************
-  * @file   fatfs.h
-  * @brief  Header for fatfs applications
+  * @file    usbh_diskio.h 
+  * @author  MCD Application Team
+  * @version V1.4.1
+  * @date    14-February-2017
+  * @brief   Header for usbh_diskio.c module
   ******************************************************************************
-  * This notice applies to any and all portions of this file
-  * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
-  * inserted by the user or by software development tools
-  * are owned by their respective copyright owners.
+  * @attention
   *
-  * Copyright (c) 2018 STMicroelectronics International N.V. 
-  * All rights reserved.
+  * <h2><center>&copy; COPYRIGHT 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without 
   * modification, are permitted, provided that the following conditions are met:
@@ -47,38 +45,16 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __fatfs_H
-#define __fatfs_H
-#ifdef __cplusplus
- extern "C" {
-#endif
+#ifndef __USBH_DISKIO_H
+#define __USBH_DISKIO_H
 
-#include "ff.h"
-#include "ff_gen_drv.h"
-#include "usbh_diskio.h" /* defines USBH_Driver as external */
-#include "user_diskio.h" /* defines USER_Driver as external */
+/* Includes ------------------------------------------------------------------*/
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported functions ------------------------------------------------------- */
+extern Diskio_drvTypeDef  USBH_Driver;
 
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
-extern uint8_t retUSBH; /* Return value for USBH */
-extern char USBHPath[4]; /* USBH logical drive path */
-extern FATFS USBHFatFS; /* File system object for USBH logical drive */
-extern FIL USBHFile; /* File object for USBH */
-extern uint8_t retUSER; /* Return value for USER */
-extern char USERPath[4]; /* USER logical drive path */
-extern FATFS USERFatFS; /* File system object for USER logical drive */
-extern FIL USERFile; /* File object for USER */
-
-void MX_FATFS_Init(void);
-
-/* USER CODE BEGIN Prototypes */
-
-/* USER CODE END Prototypes */
-#ifdef __cplusplus
-}
-#endif
-#endif /*__fatfs_H */
+#endif /* __USBH_DISKIO_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
