@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file           : main.h
-  * @brief          : Header for main.c file.
-  *                   This file contains the common defines of the application.
+  * File Name          : dma.h
+  * Description        : This file contains all the function prototypes for
+  *                      the dma.c file
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
@@ -46,108 +46,43 @@
   *
   ******************************************************************************
   */
-
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __MAIN_H__
-#define __MAIN_H__
+#ifndef __dma_H
+#define __dma_H
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f1xx_hal.h"
+#include "main.h"
+
+/* DMA memory to memory transfer handles -------------------------------------*/
+extern void _Error_Handler(char*, int);
 
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
 
-/* Private define ------------------------------------------------------------*/
-
-#define TFT_D2_Pin GPIO_PIN_2
-#define TFT_D2_GPIO_Port GPIOE
-#define TFT_D3_Pin GPIO_PIN_3
-#define TFT_D3_GPIO_Port GPIOE
-#define TFT_D4_Pin GPIO_PIN_4
-#define TFT_D4_GPIO_Port GPIOE
-#define TFT_D5_Pin GPIO_PIN_5
-#define TFT_D5_GPIO_Port GPIOE
-#define TFT_D6_Pin GPIO_PIN_6
-#define TFT_D6_GPIO_Port GPIOE
-#define KEY1_CENTER_Pin GPIO_PIN_13
-#define KEY1_CENTER_GPIO_Port GPIOC
-#define KEY1_RIGHT_Pin GPIO_PIN_6
-#define KEY1_RIGHT_GPIO_Port GPIOA
-#define TOUCH_BOTTOM_Pin GPIO_PIN_0
-#define TOUCH_BOTTOM_GPIO_Port GPIOB
-#define TOUCH_LEFT_Pin GPIO_PIN_1
-#define TOUCH_LEFT_GPIO_Port GPIOB
-#define TFT_D7_Pin GPIO_PIN_7
-#define TFT_D7_GPIO_Port GPIOE
-#define TFT_RST_Pin GPIO_PIN_8
-#define TFT_RST_GPIO_Port GPIOE
-#define TFT_LIGHT_Pin GPIO_PIN_9
-#define TFT_LIGHT_GPIO_Port GPIOE
-#define TFT_RD_Pin GPIO_PIN_10
-#define TFT_RD_GPIO_Port GPIOE
-#define TFT_WR_Pin GPIO_PIN_11
-#define TFT_WR_GPIO_Port GPIOE
-#define TFT_RS_Pin GPIO_PIN_12
-#define TFT_RS_GPIO_Port GPIOE
-#define TFT_NC_Pin GPIO_PIN_13
-#define TFT_NC_GPIO_Port GPIOE
-#define BUZZER_Pin GPIO_PIN_14
-#define BUZZER_GPIO_Port GPIOE
-#define TFT_CS_Pin GPIO_PIN_15
-#define TFT_CS_GPIO_Port GPIOE
-#define SD_CD_Pin GPIO_PIN_15
-#define SD_CD_GPIO_Port GPIOD
-#define MP3_DREQ_Pin GPIO_PIN_6
-#define MP3_DREQ_GPIO_Port GPIOC
-#define MP3_RST_Pin GPIO_PIN_7
-#define MP3_RST_GPIO_Port GPIOC
-#define MP3_CS_Pin GPIO_PIN_8
-#define MP3_CS_GPIO_Port GPIOC
-#define MP3_DCS_Pin GPIO_PIN_9
-#define MP3_DCS_GPIO_Port GPIOC
-#define USB_PSW_Pin GPIO_PIN_10
-#define USB_PSW_GPIO_Port GPIOA
-#define KEY1_LEFT_Pin GPIO_PIN_2
-#define KEY1_LEFT_GPIO_Port GPIOD
-#define SD_CS_Pin GPIO_PIN_3
-#define SD_CS_GPIO_Port GPIOD
-#define KEY1_UP_Pin GPIO_PIN_4
-#define KEY1_UP_GPIO_Port GPIOD
-#define FLASH_CS_Pin GPIO_PIN_7
-#define FLASH_CS_GPIO_Port GPIOD
-#define KEY1_DOWN_Pin GPIO_PIN_5
-#define KEY1_DOWN_GPIO_Port GPIOB
-#define TOUCH_DRIVEA_Pin GPIO_PIN_8
-#define TOUCH_DRIVEA_GPIO_Port GPIOB
-#define TOUCH_DRIVEB_Pin GPIO_PIN_9
-#define TOUCH_DRIVEB_GPIO_Port GPIOB
-#define TFT_D0_Pin GPIO_PIN_0
-#define TFT_D0_GPIO_Port GPIOE
-#define TFT_D1_Pin GPIO_PIN_1
-#define TFT_D1_GPIO_Port GPIOE
-
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the 
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
-
 /* USER CODE BEGIN Private defines */
-char USER_Path[4];
 
 /* USER CODE END Private defines */
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-void _Error_Handler(char *, int);
+void MX_DMA_Init(void);
 
-#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+/* USER CODE BEGIN Prototypes */
+
+/* USER CODE END Prototypes */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __MAIN_H__ */
+#endif /* __dma_H */
+
+/**
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
